@@ -20,9 +20,9 @@ class EntriesController extends Controller
     {
         $entryCollection = collect(Entry::all());
         $sortedEntryCollection = $entryCollection->sortByDesc('reception_date');
-        
+
         return Inertia::render("Entries/List", [
-            'entries' => $sortedEntryCollection->values()->all(),
+            'entries' => $sortedEntryCollection->values()->take(100),
             'categories' => Category::all(),
             'suppliers' => Supplier::all()
         ]);
