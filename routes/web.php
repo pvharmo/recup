@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\EntriesController;
@@ -23,4 +24,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Redirect::route('entries.index');
 })->name('dashboard');
 
-Route::resource('entries', EntriesController::class);
+Route::resource('entries', EntriesController::class)->middleware('auth');
