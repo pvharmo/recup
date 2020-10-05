@@ -18,7 +18,14 @@ class EntriesController extends Controller
      */
     public function index()
     {
-        //
+        $entryCollection = collect(Entry::all());
+        $sortedEntryCollection = $entryCollection->sortByDesc('reception_date');
+        
+        return Inertia::render("Entries/List", [
+            'entries' => $sortedEntryCollection->values()->all(),
+            'categories' => Category::all(),
+            'suppliers' => Supplier::all()
+        ]);
     }
 
     /**
@@ -73,7 +80,11 @@ class EntriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        return Inertia::render("Entries/Edit", [
+            'categories' => Category::all(),
+            'suppliers' => Supplier::all(),
+            'entry' => Entry::findOrFail($id)
+        ]);
     }
 
     /**
@@ -85,7 +96,20 @@ class EntriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'amount' => ['required'],
+            'category_id' => ['required'],
+            'supplier_id' => ['required'],
+            'reception_date' => ['required'],
+        ]);
+
+        $entry = Entry::find($id);
+
+        $entry->fill($request->all());
+
+        $entry->save();
+
+        return Redirect::route('entries.index');
     }
 
     /**
@@ -96,6 +120,8 @@ class EntriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Entry::destroy($id);
+
+        return Redirect::route('entries.index');
     }
 }

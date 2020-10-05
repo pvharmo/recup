@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\EntriesController;
 
 /*
@@ -15,11 +16,11 @@ use App\Http\Controllers\EntriesController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return Redirect::route('login');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia\Inertia::render('Dashboard');
+    return Redirect::route('entries.index');
 })->name('dashboard');
 
 Route::resource('entries', EntriesController::class);

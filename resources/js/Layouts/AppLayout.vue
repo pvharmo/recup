@@ -14,8 +14,11 @@
 
                         <!-- Navigation Links -->
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                            <jet-nav-link href="/dashboard" :active="$page.currentRouteName == 'dashboard'">
-                                Dashboard
+                            <jet-nav-link href="/entries/create" :active="$page.currentRouteName == 'dashboard'">
+                                Nouvelle entrée
+                            </jet-nav-link>
+                            <jet-nav-link href="/entries" :active="$page.currentRouteName == 'dashboard'">
+                                Liste des entrées
                             </jet-nav-link>
                         </div>
                     </div>
@@ -43,15 +46,11 @@
                                 <template #content>
                                     <!-- Account Management -->
                                     <div class="block px-4 py-2 text-xs text-gray-400">
-                                        Manage Account
+                                        Gérer le compte
                                     </div>
 
                                     <jet-dropdown-link href="/user/profile">
-                                        Profile
-                                    </jet-dropdown-link>
-
-                                    <jet-dropdown-link href="/user/api-tokens" v-if="$page.jetstream.hasApiFeatures">
-                                        API Tokens
+                                        Profil
                                     </jet-dropdown-link>
 
                                     <div class="border-t border-gray-100"></div>
@@ -95,7 +94,7 @@
                                     <!-- Authentication -->
                                     <form @submit.prevent="logout">
                                         <jet-dropdown-link as="button">
-                                            Logout
+                                            Se déconnecter
                                         </jet-dropdown-link>
                                     </form>
                                 </template>
